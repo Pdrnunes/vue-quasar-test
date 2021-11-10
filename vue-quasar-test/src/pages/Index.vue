@@ -1,5 +1,7 @@
 <template>
   <q-page padding>
+    <!-- lesson 3 - editing a property in realtime with v-model directive: -->
+    <input v-model="message"/>
     <!-- all quasar pages root element -->
     <!-- <h5>introducing titles in my app</h5> lesson 2: manual hardcoded message -->
     <h5>{{message}}</h5>

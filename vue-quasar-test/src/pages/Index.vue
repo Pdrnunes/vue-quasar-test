@@ -1,16 +1,10 @@
 <template>
   <q-page padding>
-    <!-- lesson 3 - editing a property in realtime with v-model directive: -->
-    <input v-model="message"/>
-    <!-- lesson 4 - attaching event to a button: -->
-    <!-- lesson 4 obs.: @click supports javascript coding event -->
-    <!-- <button @click="message = ''">Clear</button> -->
-    <!-- lesson 4 - clearing message implementing a method: -->
-    <button @click="clearMessage"></button>
-    <!-- all quasar pages root element -->
-    <!-- <h5>introducing titles in my app</h5> lesson 2: manual hardcoded message -->
-    <h5>{{message}}</h5>
-    <!-- lesson 2: exporting the property message to page -->
+    <!-- vuejs directives (v-model, @keyup, @click, @mouseenter, etc.): allows js codes into html -->
+    <!-- <input v-model="message" @keyup="handleKeyup"/> -->
+    <input v-model="message" @keyup.esc="clearMessage" @keyup.enter="alertMessage"/>
+    <button @click="clearMessage">Clear</button>
+    <h5>{{message}}</h5>    
   </q-page>
 </template>
 
@@ -26,12 +20,42 @@ export default defineComponent({
   data() {
     return {
       // here is where all properties will go:
-      message: 'Introducing titles in my app' //lesson 2 more adaptability if a further method changes the content of this property.
+      id: 1,
+      // properties are separated with commas
+      message: 'Introducing titles in my app', //lesson 2 more adaptability if a further method changes the content of this property.
+      changed: false
     }
   },
-  methods: {
+  methods: { //this is where all methods of component defineComponent should go
     clearMessage() { //the method for clearing the message editor
       this.message = ''
+    }, //methods are also separated with commas
+    handleKeyup(keyInput) {
+      // console.log(keyInput.keyCode);
+      if (keyInput.keyCode == 27) {
+        // this.message = '' redundant
+        this.clearMessage(); // code reuse
+      } else if (keyInput.keyCode == 13) {
+        this.alertMessage();
+        this.changedMessage();
+        console.log(this.changed);
+      }
+    },
+    alertMessage() {
+      alert(this.message)
+      this.changedMessage()
+      console.log(this.changed);
+
+    },
+    alertId() {
+      alert(this.id)
+    },
+    changedMessage() {
+      if (this.changed == false) {
+        this.changed = true
+      } else if (this.changed == true) {
+        this.changed = false;
+      }
     }
   }
 })

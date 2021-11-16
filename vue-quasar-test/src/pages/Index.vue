@@ -4,11 +4,17 @@
     <!-- <input v-model="message" @keyup="handleKeyup"/> -->
     <input v-model="message" @keyup.esc="clearMessage" @keyup.enter="alertMessage"/>
     <button @click="clearMessage">Clear</button>
-    <h5>{{message}}</h5>    
+    <!-- the h5 message shows only if the message have a lenght greater then zero -->
+    <h5 class="border-grey" v-show="message.length">{{ message }}</h5>    
   </q-page>
 </template>
 
+
 <style>
+/* create SCSS classes here */
+.border-grey {
+  border: 1px solid grey;
+}
 </style>
 
 <script>
@@ -20,10 +26,10 @@ export default defineComponent({
   data() {
     return {
       // here is where all properties will go:
-      id: 1,
+      // id: 1,
       // properties are separated with commas
       message: 'Introducing titles in my app', //lesson 2 more adaptability if a further method changes the content of this property.
-      changed: false
+      // changed: false
     }
   },
   methods: { //this is where all methods of component defineComponent should go
@@ -37,26 +43,33 @@ export default defineComponent({
         this.clearMessage(); // code reuse
       } else if (keyInput.keyCode == 13) {
         this.alertMessage();
-        this.changedMessage();
+        console.log(this.message);
+        // this.changedMessage();
         console.log(this.changed);
       }
     },
     alertMessage() {
       alert(this.message)
-      this.changedMessage()
-      console.log(this.changed);
+      // this.changedMessage(this.message)
 
     },
-    alertId() {
-      alert(this.id)
-    },
-    changedMessage() {
-      if (this.changed == false) {
-        this.changed = true
-      } else if (this.changed == true) {
-        this.changed = false;
-      }
-    }
+    // alertId() {
+    //   alert(this.id)
+    // },
+    // changedMessage(dataMessage) {
+    //   var msg
+    //   console.log('1', dataMessage);
+    //   msg = dataMessage
+    //   console.log('2', msg);
+    //   if (this.changed == false && msg != this.message) {
+    //     this.changed = true
+    //     this.message = msg
+    //     console.log('3', this.message);
+    //   }
+      // } else if (this.changed == true) {
+      //   this.changed = true;
+      // }
+    // }
   }
 })
 </script>

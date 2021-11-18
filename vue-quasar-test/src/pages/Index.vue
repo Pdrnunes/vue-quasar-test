@@ -2,10 +2,28 @@
   <q-page padding>
     <!-- vuejs directives (v-model, @keyup, @click, @mouseenter, etc.): allows js codes into html -->
     <!-- <input v-model="message" @keyup="handleKeyup"/> -->
-    <input v-model="message" @keyup.esc="clearMessage" @keyup.enter="alertMessage"/>
-    <button @click="clearMessage">Clear</button>
+    <input 
+      v-model="message" 
+      @keyup.esc="clearMessage" 
+      @keyup.enter="alertMessage"/>
+    <button 
+      @click="clearMessage">Clear</button>
+
     <!-- the h5 message shows only if the message have a lenght greater then zero -->
-    <h5 class="border-grey" v-show="message.length">{{ message }}</h5>    
+    <!-- <h5 
+      class="border-grey" 
+      v-show="message.length">{{ message }}
+    </h5>     -->
+
+    <!-- implementation of v-if/else directives -->
+    <h5 
+      class="border-grey" 
+      v-if="message.length">{{ message }}
+    </h5>
+    <h6 
+      v-else>{{ message2 }}
+    </h6>
+    
   </q-page>
 </template>
 
@@ -29,6 +47,7 @@ export default defineComponent({
       // id: 1,
       // properties are separated with commas
       message: 'Introducing titles in my app', //lesson 2 more adaptability if a further method changes the content of this property.
+      message2: 'No message entered D=',
       // changed: false
     }
   },

@@ -1,5 +1,10 @@
 <template>
   <q-page padding>
+    <button
+      style="position: absolute; right: 10px"
+      @click="counter++">
+      {{counter}}
+    </button>
     <!-- vuejs directives (v-model, @keyup, @click, @mouseenter, etc.): allows js codes into html -->
     <!-- <input v-model="message" @keyup="handleKeyup"/> -->
     <input 
@@ -23,7 +28,14 @@
     <h6 
       v-else>{{ message2 }}
     </h6>
-    
+
+    <hr>
+    <p>Uppercase message:</p>
+    <p v-if="message.length"> {{ messagetoUpperCase }}</p>
+    <!-- even though computed properties are technicaly METHODS, they are treated
+    as static data properties, like 'message' or 'counter', so the parenthesis 
+    are not needed in the directive-->
+    <p v-else>{{message3}}<br>{{message4}}</p>
   </q-page>
 </template>
 
@@ -48,7 +60,17 @@ export default defineComponent({
       // properties are separated with commas
       message: 'Introducing titles in my app', //lesson 2 more adaptability if a further method changes the content of this property.
       message2: 'No message entered D=',
+      message3: 'No message to Uppercase',
+      message4: 'Just by clearing the message using backspace you will se that the computed directive fires 27 times, showing that this is highly ineficient',
+      counter: 0,
       // changed: false
+    }
+  },
+  // computed property:
+  computed: {
+    messagetoUpperCase() {
+      console.log('messagetoUppercase was triggered');
+      return this.message.toUpperCase()
     }
   },
   methods: { //this is where all methods of component defineComponent should go
@@ -70,8 +92,8 @@ export default defineComponent({
     alertMessage() {
       alert(this.message)
       // this.changedMessage(this.message)
-
     },
+    
     // alertId() {
     //   alert(this.id)
     // },

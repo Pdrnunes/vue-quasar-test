@@ -36,6 +36,8 @@
     as static data properties, like 'message' or 'counter', so the parenthesis 
     are not needed in the directive-->
     <p v-else>{{message3}}<br>{{message4}}</p>
+    <!-- <p>Lowercase message: {{message | lowCase}}</p> -->
+    <!-- BUT FILTERS ARE DEPRECATED IN VUE 3, so i'm commenting it... -->
   </q-page>
 </template>
 
@@ -70,7 +72,9 @@ export default defineComponent({
   computed: {
     messagetoUpperCase() {
       console.log('messagetoUppercase was triggered');
-      return this.message.toUpperCase()
+      return this.message.toUpperCase() + this.counter
+      // computed properties have access to data and methods properties, thus been more powerful than
+      // the deprecated filter property
     }
   },
   methods: { //this is where all methods of component defineComponent should go
@@ -111,6 +115,14 @@ export default defineComponent({
       //   this.changed = true;
       // }
     // }
-  }
+  },
+  // Filters are basicaly methods, so they can accept values AND ARE DEPRECATED IN VUE 3
+  // Puting it in my project comentated just for learning it
+   /*/filters: {
+      lowCase(v) {
+      return v.toLowerCase()
+     }
+    }*/ 
 })
+
 </script>

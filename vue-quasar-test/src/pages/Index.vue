@@ -10,7 +10,8 @@
     <input 
       v-model="message" 
       @keyup.esc="clearMessage" 
-      @keyup.enter="alertMessage"/>
+      @keyup.enter="alertMessage"
+      v-autofocus/>
     <button 
       @click="clearMessage">Clear</button>
 
@@ -30,12 +31,15 @@
     </h6>
 
     <hr>
-    <p>Uppercase message:</p>
-    <p v-if="message.length"> {{ messagetoUpperCase }}</p>
+    <div v-if="message.length">
+      <p>Uppercase message: {{ messagetoUpperCase }}<br>Lowercase message: {{ messagetoLowerCase }}</p>
+    </div>
+    <div v-else>{{message3}}<br>{{message4}}</div>
     <!-- even though computed properties are technicaly METHODS, they are treated
     as static data properties, like 'message' or 'counter', so the parenthesis 
     are not needed in the directive-->
-    <p v-else>{{message3}}<br>{{message4}}</p>
+    
+    
     <!-- <p>Lowercase message: {{message | lowCase}}</p> -->
     <!-- BUT FILTERS ARE DEPRECATED IN VUE 3, so i'm commenting it... -->
   </q-page>
@@ -62,7 +66,7 @@ export default defineComponent({
       // properties are separated with commas
       message: 'Introducing titles in my app', //lesson 2 more adaptability if a further method changes the content of this property.
       message2: 'No message entered D=',
-      message3: 'No message to Uppercase',
+      message3: 'No message to uppercase or lowercase',
       message4: 'Just by clearing the message using backspace you will se that the computed directive fires 27 times, showing that this is highly ineficient',
       counter: 0,
       // changed: false
@@ -72,9 +76,12 @@ export default defineComponent({
   computed: {
     messagetoUpperCase() {
       console.log('messagetoUppercase was triggered');
-      return this.message.toUpperCase() + this.counter
+      return this.message.toUpperCase() /*+ this.counter*/
       // computed properties have access to data and methods properties, thus been more powerful than
       // the deprecated filter property
+    },
+    messagetoLowerCase() {
+      return this.message.toLowerCase()
     }
   },
   methods: { //this is where all methods of component defineComponent should go
@@ -122,7 +129,14 @@ export default defineComponent({
       lowCase(v) {
       return v.toLowerCase()
      }
-    }*/ 
+    }*/
+    directives: {
+      autofocus: {
+        mounted(el) {
+          el.focus()
+        }
+      }
+    }
 })
 
 </script>
